@@ -1,16 +1,21 @@
 package com.java10x.CadastroDeUsuarios.Usuarios;
-
 import com.java10x.CadastroDeUsuarios.Tarefas.TarefaModel;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name = "tb_cadastro")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class UsuarioModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Cria os Ids
     private int id;
 
     private String nome;
@@ -22,36 +27,4 @@ public class UsuarioModel {
     @JoinColumn(name = "tarefas_id") // cria uma coluna para a chave estrangeira
     private TarefaModel tarefas;
 
-    public UsuarioModel() {
-    }
-
-    public UsuarioModel(int idade, String email, String nome) {
-        this.idade = idade;
-        this.email = email;
-        this.nome = nome;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
 }
