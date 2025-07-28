@@ -19,7 +19,10 @@ public class UsuarioModel {
     private int id;
 
     private String nome;
+
+    @Column(unique = true)
     private String email;
+
     private int idade;
 
     // Um usuario so pode estar atribuito a uma unica tarefa
