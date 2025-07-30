@@ -16,13 +16,19 @@ public class UsuarioModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Cria os Ids
+    @Column(name = "ID") // nome da coluna
     private int id;
 
+    @Column(name = "nome")
     private String nome;
 
     @Column(unique = true)
     private String email;
 
+    @Column(name = "img_url")
+    private String imgUrl;
+
+    @Column(name = "idade")
     private int idade;
 
     // Um usuario so pode estar atribuito a uma unica tarefa
