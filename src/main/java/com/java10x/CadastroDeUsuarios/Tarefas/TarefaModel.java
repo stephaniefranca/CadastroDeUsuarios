@@ -1,4 +1,5 @@
 package com.java10x.CadastroDeUsuarios.Tarefas;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.java10x.CadastroDeUsuarios.Usuarios.UsuarioModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,5 +24,6 @@ public class TarefaModel {
 
     // Uma tarefa pode ter mais de um usuario
     @OneToMany(mappedBy = "tarefas")
+    @JsonIgnore
     private List<UsuarioModel> usuarios;
 }
