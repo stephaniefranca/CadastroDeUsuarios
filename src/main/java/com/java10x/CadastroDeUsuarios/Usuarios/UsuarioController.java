@@ -2,9 +2,17 @@ package com.java10x.CadastroDeUsuarios.Usuarios;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping ("usuarios")
 public class UsuarioController {
+
+    private UsuarioService usuarioService;
+
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
 
     @GetMapping("/boasvindas")
     public String boasVindas(){
@@ -21,8 +29,8 @@ public class UsuarioController {
 
     // Mostrar todos os user (read)
     @GetMapping("/listar")
-    public String mostrarTodoUsuarios(){
-        return "Todos usuarios";
+    public List<UsuarioModel> listarUsuarios(){
+        return usuarioService.listarUsuarios();
     }
 
     //Mostrar user por ID (read)
