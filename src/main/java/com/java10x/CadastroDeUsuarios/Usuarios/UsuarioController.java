@@ -3,7 +3,7 @@ package com.java10x.CadastroDeUsuarios.Usuarios;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping ("usuarios")
 public class UsuarioController {
 
     @GetMapping("/boasvindas")
@@ -20,13 +20,13 @@ public class UsuarioController {
     }
 
     // Mostrar todos os user (read)
-    @GetMapping("/todos")
+    @GetMapping("/listar")
     public String mostrarTodoUsuarios(){
         return "Todos usuarios";
     }
 
     //Mostrar user por ID (read)
-    @GetMapping("/todosId")
+    @GetMapping("/listarId")
     public String mostrarTodoUsuariosPorId(){
         return "Usuario Id";
     }
