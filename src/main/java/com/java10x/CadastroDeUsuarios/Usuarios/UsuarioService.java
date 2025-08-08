@@ -22,4 +22,9 @@ public class UsuarioService {
         Optional<UsuarioModel> usuarioPorId = usuarioRepository.findById(id);
         return usuarioPorId.orElse(null);
     }
+
+    //Criar usuario
+    public UsuarioModel criarUsuario(UsuarioModel usuario){
+        return usuarioRepository.save(usuario);
+    }
 }

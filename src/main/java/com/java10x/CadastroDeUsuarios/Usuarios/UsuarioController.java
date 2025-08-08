@@ -23,8 +23,8 @@ public class UsuarioController {
 
     // Adicionar user (create)
     @PostMapping("/criar")
-    public String criarUsuario(){
-        return "Usuario criado";
+    public UsuarioModel criarUsuario(@RequestBody UsuarioModel usuario){
+        return usuarioService.criarUsuario(usuario);
     }
 
     // Mostrar todos os user (read)
