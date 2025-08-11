@@ -17,7 +17,7 @@ public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Cria os Ids
     @Column(name = "ID") // nome da coluna
-    private int id;
+    private Long id;
 
     @Column(name = "nome")
     private String nome;

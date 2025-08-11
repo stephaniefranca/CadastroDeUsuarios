@@ -40,9 +40,9 @@ public class UsuarioController {
     }
 
     // Alterar dados do user (update)
-    @PutMapping("/alterarId")
-    public String alterarUsuarioPorId(){
-        return "Alterar usuario po Id";
+    @PutMapping("/alterar/{id}")
+    public UsuarioModel atualizarUsuario(@PathVariable Long id, @RequestBody UsuarioModel usuarioAtualizado){
+        return usuarioService.atualizarUsuario(id, usuarioAtualizado);
     }
 
     //Deletar user (delete)
