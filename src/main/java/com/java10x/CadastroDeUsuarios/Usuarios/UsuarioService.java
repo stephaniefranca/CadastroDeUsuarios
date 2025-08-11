@@ -27,4 +27,9 @@ public class UsuarioService {
     public UsuarioModel criarUsuario(UsuarioModel usuario){
         return usuarioRepository.save(usuario);
     }
+
+    //Deletar usuario por ID - tem que ver metodo VOID
+    public void deletarUsuariosPorId(Long id){
+        usuarioRepository.deleteById(id);
+    }
 }
