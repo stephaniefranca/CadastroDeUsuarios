@@ -29,19 +29,19 @@ public class UsuarioController {
 
     // Mostrar todos os user (read)
     @GetMapping("/listar")
-    public List<UsuarioModel> listarUsuarios(){
+    public List<UsuarioDTO> listarUsuarios(){
         return usuarioService.listarUsuarios();
     }
 
     //Mostrar user por ID (read)
     @GetMapping("/listar/{id}")
-    public UsuarioModel listarUsuariosPorId(@PathVariable Long id){
+    public UsuarioDTO listarUsuariosPorId(@PathVariable Long id){
         return usuarioService.listarUsuariosPorId(id);
     }
 
     // Alterar dados do user (update)
     @PutMapping("/alterar/{id}")
-    public UsuarioModel atualizarUsuario(@PathVariable Long id, @RequestBody UsuarioModel usuarioAtualizado){
+    public UsuarioDTO atualizarUsuario(@PathVariable Long id, @RequestBody UsuarioDTO usuarioAtualizado){
         return usuarioService.atualizarUsuario(id, usuarioAtualizado);
     }
 

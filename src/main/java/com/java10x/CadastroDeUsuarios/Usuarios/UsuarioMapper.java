@@ -5,9 +5,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class UsuarioMapper {
 
-    public UsuarioModel map(UsuarioDTO usuarioDTO){
-        UsuarioModel usuarioModel = new UsuarioModel();
+    // DTO → Model
+    public UsuarioModel map(UsuarioDTO usuarioDTO) {
+        if (usuarioDTO == null) {
+            return null;
+        }
 
+        UsuarioModel usuarioModel = new UsuarioModel();
         usuarioModel.setId(usuarioDTO.getId());
         usuarioModel.setNome(usuarioDTO.getNome());
         usuarioModel.setEmail(usuarioDTO.getEmail());
@@ -17,21 +21,23 @@ public class UsuarioMapper {
         usuarioModel.setTarefas(usuarioDTO.getTarefas());
 
         return usuarioModel;
-
     }
 
-    public UsuarioDTO map(UsuarioModel usuarioModel){
-        UsuarioDTO usuarioDTO = new UsuarioDTO();
+    // Model → DTO
+    public UsuarioDTO map(UsuarioModel usuarioModel) {
+        if (usuarioModel == null) {
+            return null;
+        }
 
-        usuarioDTO.setId(usuarioDTO.getId());
-        usuarioDTO.setNome(usuarioDTO.getNome());
-        usuarioDTO.setEmail(usuarioDTO.getEmail());
-        usuarioDTO.setIdade(usuarioDTO.getIdade());
-        usuarioDTO.setImgUrl(usuarioDTO.getImgUrl());
-        usuarioDTO.setRank(usuarioDTO.getRank());
-        usuarioDTO.setTarefas(usuarioDTO.getTarefas());
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.setId(usuarioModel.getId());
+        usuarioDTO.setNome(usuarioModel.getNome());
+        usuarioDTO.setEmail(usuarioModel.getEmail());
+        usuarioDTO.setIdade(usuarioModel.getIdade());
+        usuarioDTO.setImgUrl(usuarioModel.getImgUrl());
+        usuarioDTO.setRank(usuarioModel.getRank());
+        usuarioDTO.setTarefas(usuarioModel.getTarefas());
 
         return usuarioDTO;
-
     }
 }

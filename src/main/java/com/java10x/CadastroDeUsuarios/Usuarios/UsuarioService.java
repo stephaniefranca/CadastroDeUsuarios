@@ -2,6 +2,7 @@ package com.java10x.CadastroDeUsuarios.Usuarios;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
@@ -17,14 +18,17 @@ public class UsuarioService {
 
 
     // Listar todos os usuarios
-    public List<UsuarioModel> listarUsuarios(){
-        return usuarioRepository.findAll();
+    public List<UsuarioDTO> listarUsuarios(){
+        List<UsuarioModel> usuario = usuarioRepository.findAll();
+        return usuario.stream()
+                .map(usuarioMapper::map)
+                .collect(Collectors.toList());
     }
 
     //Listar usuario por ID
-    public UsuarioModel listarUsuariosPorId(Long id){
+    public UsuarioDTO listarUsuariosPorId(Long id){
         Optional<UsuarioModel> usuarioPorId = usuarioRepository.findById(id);
-        return usuarioPorId.orElse(null);
+        return usuarioPorId.map(usuarioMapper::map).orElse(null);
     }
 
     //Criar usuario
@@ -40,10 +44,13 @@ public class UsuarioService {
     }
 
     // Atualizar usuario
-    public UsuarioModel atualizarUsuario(Long id, UsuarioModel usuarioAtualizado){
-        if(usuarioRepository.existsById(id)){
-            usuarioAtualizado.setId(id);
-            return usuarioRepository.save(usuarioAtualizado);
+    public UsuarioDTO atualizarUsuario(Long id, UsuarioDTO usuarioDTO){
+        Optional<UsuarioModel> usuarioExistente = usuarioRepository.findById(id);
+        if (usuarioExistente.isPresent()){
+            UsuarioModel usuarioAtual = usuarioMapper.map(usuarioDTO);
+            usuarioAtual.setId(id);
+            UsuarioModel usuarioSalvo = usuarioRepository.save(usuarioAtual);
+            return  usuarioMapper.map(usuarioSalvo);
         }
         return null;
     }
