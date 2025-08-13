@@ -31,9 +31,14 @@ public class UsuarioModel {
     @Column(name = "idade")
     private int idade;
 
+    @Column(name = "rank")
+    private String rank;
+
+
     // Um usuario so pode estar atribuito a uma unica tarefa
     @ManyToOne
     @JoinColumn(name = "tarefas_id") // cria uma coluna para a chave estrangeira
     private TarefaModel tarefas;
+
 
 }
