@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 @Service
 public class UsuarioService {
 
-    private UsuarioRepository usuarioRepository;
-    private UsuarioMapper usuarioMapper;
+    private final UsuarioRepository usuarioRepository;
+    private final UsuarioMapper usuarioMapper;
 
 
     public UsuarioService(UsuarioRepository usuarioRepository, UsuarioMapper usuarioMapper) {
