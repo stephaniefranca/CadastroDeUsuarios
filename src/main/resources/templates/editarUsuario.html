@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Usuário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4faff;
+            padding: 20px;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 8px #ccc;
+            max-width: 400px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h2 style="text-align:center;">Editar Usuário</h2>
+
+<form th:action="@{/usuarios/ui/atualizar}" th:object="${usuario}" method="post">
+
+    <!-- Campos ocultos para manter dados que não estão no formulário -->
+    <input type="hidden" th:field="*{imgUrl}"/>
+    <input type="hidden" th:field="*{rank}"/>
+    <input type="hidden" th:field="*{id}"/>
+
+    <label>Nome:</label>
+    <input type="text" th:field="*{nome}" required/>
+
+    <label>Email:</label>
+    <input type="email" th:field="*{email}" required/>
+
+    <label>Idade:</label>
+    <input type="number" th:field="*{idade}" required/>
+
+    <!-- Campo de tarefa removido da edição - mantém a tarefa existente -->
+    <input type="hidden" th:field="*{tarefas.id}"/>
+
+    <button type="submit">Salvar</button>
+</form>
+
+</body>
+</html>

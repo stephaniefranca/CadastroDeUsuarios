@@ -1,4 +1,7 @@
 package com.java10x.CadastroDeUsuarios.Usuarios;
+
+import com.java10x.CadastroDeUsuarios.Tarefas.TarefaModel;
+import com.java10x.CadastroDeUsuarios.Tarefas.TarefaRepository; // Importe o TarefaRepository
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -9,13 +12,15 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final UsuarioMapper usuarioMapper;
+    private final TarefaRepository tarefaRepository; // Adicione esta dependência
 
-
-    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioMapper usuarioMapper) {
+    public UsuarioService(UsuarioRepository usuarioRepository,
+                          UsuarioMapper usuarioMapper,
+                          TarefaRepository tarefaRepository) { // Injete via construtor
         this.usuarioRepository = usuarioRepository;
         this.usuarioMapper = usuarioMapper;
+        this.tarefaRepository = tarefaRepository; // Inicialize a dependência
     }
-
 
     // Listar todos os usuarios
     public List<UsuarioDTO> listarUsuarios(){
@@ -44,15 +49,34 @@ public class UsuarioService {
     }
 
     // Atualizar usuario
-    public UsuarioDTO atualizarUsuario(Long id, UsuarioDTO usuarioDTO){
-        Optional<UsuarioModel> usuarioExistente = usuarioRepository.findById(id);
-        if (usuarioExistente.isPresent()){
-            UsuarioModel usuarioAtual = usuarioMapper.map(usuarioDTO);
-            usuarioAtual.setId(id);
-            UsuarioModel usuarioSalvo = usuarioRepository.save(usuarioAtual);
-            return  usuarioMapper.map(usuarioSalvo);
-        }
-        return null;
-    }
+    public void atualizarUsuario(Long id, UsuarioDTO usuarioDTO) {
+        UsuarioModel usuarioExistente = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+        // Preserva os dados existentes e atualiza apenas os campos do formulário
+        usuarioExistente.setNome(usuarioDTO.getNome());
+        usuarioExistente.setEmail(usuarioDTO.getEmail());
+        usuarioExistente.setIdade(usuarioDTO.getIdade());
+
+        // Mantém imgUrl e rank se estiverem sendo enviados (campos ocultos)
+        if (usuarioDTO.getImgUrl() != null && !usuarioDTO.getImgUrl().isEmpty()) {
+            usuarioExistente.setImgUrl(usuarioDTO.getImgUrl());
+        }
+
+        if (usuarioDTO.getRank() != null && !usuarioDTO.getRank().isEmpty()) {
+            usuarioExistente.setRank(usuarioDTO.getRank());
+        }
+
+        // Atualiza a tarefa se foi selecionada uma nova
+        if (usuarioDTO.getTarefas() != null && usuarioDTO.getTarefas().getId() != null) {
+            TarefaModel tarefa = tarefaRepository.findById(usuarioDTO.getTarefas().getId())
+                    .orElse(null);
+            usuarioExistente.setTarefas(tarefa);
+        } else {
+            // Se não foi selecionada tarefa, remove a associação
+            usuarioExistente.setTarefas(null);
+        }
+
+        usuarioRepository.save(usuarioExistente);
+    }
 }

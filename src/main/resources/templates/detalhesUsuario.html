@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Detalhes do Usuário</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4faff;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* garante centralização vertical */
+        }
+
+        div {
+            max-width: 800px;
+            width: 90%;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center; /* centraliza textos e imagem dentro do div */
+        }
+
+        img {
+            display: block;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            border: 3px solid #90caf9;
+        }
+
+        h2, h3, p {
+            margin: 10px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        thead {
+            background: #42a5f5;
+            color: white;
+        }
+
+        thead th {
+            padding: 10px;
+            text-align: center; /* centraliza cabeçalho */
+        }
+
+        tbody td {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: center; /* centraliza conteúdo das células */
+        }
+
+        tbody tr:hover {
+            background: #e3f2fd;
+            transition: 0.3s;
+        }
+
+        a.button {
+            display: inline-block;
+            padding: 10px 18px;
+            margin-top: 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            background: #42a5f5;
+            transition: 0.3s;
+        }
+
+        a.button:hover {
+            background: #1e88e5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+    </style>
+</head>
+<body>
+
+<div>
+    <img th:src="${usuario.imgUrl}" alt="${usuario.nome}" width="200" />
+    <h2 th:text="${usuario.nome}"></h2>
+    <p><strong>Email:</strong> <span th:text="${usuario.email}"></span></p>
+    <p><strong>Idade:</strong> <span th:text="${usuario.idade}"></span></p>
+    <p><strong>Rank:</strong> <span th:text="${usuario.rank}"></span></p>
+
+    <h3>Tarefas:</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Dificuldade</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tarefa : ${usuario.tarefas}">
+            <td th:text="${tarefa.nome}"></td>
+            <td th:text="${tarefa.dificuldade}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a class="button" href="/usuarios/ui/listar">Voltar para a lista de usuários</a>
+</div>
+
+</body>
+</html>

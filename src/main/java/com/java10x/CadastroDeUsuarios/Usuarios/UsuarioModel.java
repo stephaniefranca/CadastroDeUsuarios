@@ -38,7 +38,7 @@ public class UsuarioModel {
 
 
     // Um usuario so pode estar atribuito a uma unica tarefa
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tarefas_id") // cria uma coluna para a chave estrangeira
     private TarefaModel tarefas;
 

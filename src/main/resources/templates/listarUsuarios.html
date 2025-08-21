@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Tabela de Usuarios</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4faff;
+            margin: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1565c0;
+            margin-bottom: 20px;
+        }
+
+        /* Botão Criar Usuário */
+        .btn-criar-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-criar {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #4caf50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-criar:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.4);
+        }
+
+        table {
+            width: 95%;
+            margin: auto;
+            border-collapse: collapse;
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: #42a5f5;
+            color: white;
+        }
+
+        thead th {
+            padding: 14px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        tbody td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        tbody tr:hover {
+            background: #e3f2fd;
+            transition: 0.3s;
+        }
+
+        img {
+            border-radius: 50%;
+            border: 2px solid #90caf9;
+        }
+
+        /* Botões modernos */
+        .btn {
+            padding: 8px 14px;
+            margin: 2px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-info { background: #42a5f5; }
+        .btn-info:hover { background: #1e88e5; transform: translateY(-2px); }
+
+        .btn-warning { background: #ffb300; }
+        .btn-warning:hover { background: #ff8f00; transform: translateY(-2px); }
+
+        .btn-danger { background: #ef5350; }
+        .btn-danger:hover { background: #c62828; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+
+<h1>Lista de Usuários</h1>
+
+<div class="btn-criar-container">
+    <a class="btn-criar" th:href="@{/usuarios/ui/adicionar}">+ Criar Usuário</a>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Foto</th>
+        <th>Nome</th>
+        <th>Idade</th>
+        <th>Email</th>
+        <th>Rank</th>
+        <th>Tarefas</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="usuario : ${usuarios}">
+        <td th:text="${usuario.id}"></td>
+        <td>
+            <img th:src="${usuario.imgUrl}" alt="Foto do usuário" width="100" height="100">
+        </td>
+        <td th:text="${usuario.nome}"></td>
+        <td th:text="${usuario.idade}"></td>
+        <td th:text="${usuario.email}"></td>
+        <td th:text="${usuario.rank}"></td>
+        <td>
+            <span th:if="${usuario.tarefas != null}">
+                <span th:text="${usuario.tarefas.nome}"></span>,
+                Dificuldade: <span th:text="${usuario.tarefas.dificuldade}"></span>
+            </span>
+            <span th:if="${usuario.tarefas == null}">
+                Sem Tarefas cadastradas para o usuário
+            </span>
+        </td>
+
+        <td>
+            <a class="btn btn-info" th:href="@{/usuarios/ui/listar/{id}(id=${usuario.id})}">Ver Detalhes</a>
+            <a class="btn btn-warning" th:href="@{/usuarios/ui/editar/{id}(id=${usuario.id})}">Alterar</a>
+            <a class="btn btn-danger" th:href="@{/usuarios/ui/deletar/{id}(id=${usuario.id})}">Deletar</a>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+
+</body>
+</html>

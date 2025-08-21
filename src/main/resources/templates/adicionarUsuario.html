@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Adicionar Usuario</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4faff;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #42a5f5;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            font-weight: 300;
+        }
+
+        .form-container {
+            max-width: 500px;
+            width: 90%;
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .mensagem {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #42a5f5;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .section-title {
+            color: #42a5f5;
+            font-size: 1.3em;
+            font-weight: 500;
+            margin: 25px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e3f2fd;
+            text-align: center;
+        }
+
+        label {
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        select {
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #42a5f5;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.1);
+        }
+
+        .btn-cadastrar {
+            display: inline-block;
+            padding: 14px 20px;
+            background: #42a5f5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-cadastrar:hover {
+            background: #1e88e5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(30, 136, 229, 0.3);
+        }
+
+        .btn-cadastrar:active {
+            transform: translateY(0);
+        }
+
+        .btn-cadastrar {
+            display: inline-block;
+            padding: 14px 20px;
+            background: #42a5f5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-cadastrar:hover {
+            background: #1e88e5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(30, 136, 229, 0.3);
+        }
+
+        .btn-cadastrar:active {
+            transform: translateY(0);
+        }
+
+        .form-container > a {
+            display: block;
+            padding: 10px 18px;
+            margin: 25px auto 0 auto;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #42a5f5;
+            background: transparent;
+            border: 2px solid #42a5f5;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 500;
+            width: fit-content;
+        }
+
+        .form-container > a:hover {
+            background: #42a5f5;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .section-title {
+                font-size: 1.1em;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="number"],
+            select,
+            .btn-cadastrar,
+            .btn-cadastrar {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h1>Adicionar Novo Usuario</h1>
+    <div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
+    <form th:action="@{/usuarios/ui/criar}" th:object="${usuario}" method="post">
+
+        <div class="section-title">Informações do Usuário</div>
+
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" th:field="*{nome}" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" th:field="*{email}" required />
+
+        <label for="imgUrl">URL da Imagem:</label>
+        <input type="text" id="imgUrl" th:field="*{imgUrl}" required />
+
+        <label for="idade">Idade:</label>
+        <input type="number" id="idade" th:field="*{idade}" required />
+
+        <label for="rank">Rank:</label>
+        <input type="text" id="rank" th:field="*{rank}" />
+
+        <div class="section-title">Informações da Tarefa</div>
+
+        <label for="nomeTarefa">Nome da Tarefa:</label>
+        <input type="text" id="nomeTarefa" th:field="*{tarefas.nome}" />
+
+        <label for="dificuldade">Dificuldade:</label>
+        <select id="dificuldade" th:field="*{tarefas.dificuldade}">
+            <option value="">Selecione a dificuldade</option>
+            <option value="FACIL">Fácil</option>
+            <option value="MEDIO">Médio</option>
+            <option value="DIFICIL">Difícil</option>
+            <option value="EXTREMO">Extremo</option>
+        </select>
+
+        <button type="submit" class="btn-cadastrar">Cadastrar Usuário</button>
+
+    </form>
+    <a th:href="@{/usuarios/ui/listar}">Voltar para a lista de Usuarios</a>
+
+
+</div>
+</body>
+</html>
