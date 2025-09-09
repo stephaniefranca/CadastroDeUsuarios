@@ -43,6 +43,7 @@ public class UsuarioController {
 
     // Mostrar todos os user (read)
     @GetMapping("/listar")
+    @Operation (summary = "Lista todos os usuarios", description = "Essa rota lista todos os usuarios cadastrados no banco de dados.")
     public ResponseEntity<List<UsuarioDTO>> listarUsuarios(){
         List<UsuarioDTO> usuarios = usuarioService.listarUsuarios();
         return ResponseEntity.ok(usuarios);
@@ -89,7 +90,10 @@ public class UsuarioController {
 
     //Deletar user (delete)
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<String> deletarUsuariosPorId(@PathVariable Long id){
+    @Operation (summary = "Deleta o usuario por ID", description = "Essa rota deleta um usuario pelo seu ID")
+    public ResponseEntity<String> deletarUsuariosPorId(
+            @Parameter (description = "Usuario manda o ID do usuario que deseja deletar")
+            @PathVariable Long id){
         if (usuarioService.listarUsuariosPorId(id) != null){
             usuarioService.deletarUsuariosPorId(id);
             return ResponseEntity.ok("Usuario de ID: " + id + " deletado com sucesso!");
